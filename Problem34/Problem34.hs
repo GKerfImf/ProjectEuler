@@ -15,8 +15,8 @@ intToListDigit n = intToListDigit (div n 10) ++ [mod n 10]
 foo :: Int -> Int
 foo n = sum $ map factorial (intToListDigit n)
 
-graph :: Int -> (Int, Int)
-graph = \n -> (n, foo n)
+graph :: (Int -> Int) -> Int -> (Int, Int)
+graph f n = (n, f n)
 
 problem_34 :: Int
-problem_34 = sum $ map (fst) (filter (\p -> (fst p) == (snd p)) (map graph [3..99999]))
+problem_34 = sum $ map (fst) (filter (\p -> (fst p) == (snd p)) (map (graph foo) [3..99999]))
